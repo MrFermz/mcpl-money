@@ -1,0 +1,4 @@
+# Keep shell scripts LF and batch files CRLF regardless of core.autocrlf
+/gradlew        text eol=lf
+*.bat           text eol=crlf
+*.jar           binary

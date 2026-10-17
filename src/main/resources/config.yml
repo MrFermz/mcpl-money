@@ -1,0 +1,70 @@
+# mcpl-money configuration
+# Messages use MiniMessage: https://docs.papermc.io/adventure/minimessage/format/
+
+# Where balances and the transaction log are stored.
+# Changing anything under "storage" needs a server restart (/money reload does not reconnect).
+storage:
+  # sqlite (default, a file in the plugin folder) or postgresql
+  type: sqlite
+  sqlite:
+    # File name inside plugins/mcpl-money/
+    file: money.db
+  postgresql:
+    host: localhost
+    port: 5432
+    database: minecraft
+    username: minecraft
+    password: ""
+    # Maximum number of open connections.
+    pool-size: 4
+
+# Money a player receives the first time they join.
+starting-balance: 100
+
+# No balance can go above this. Payments or gives that would exceed it are refused.
+max-balance: 1000000000000
+
+currency:
+  symbol: "$"
+  # How the amount is shown. <symbol> and <amount> are replaced, e.g. "<amount> coins".
+  format: "<symbol><amount>"
+  # Decimal places to keep (0-8). Use 0 for whole numbers only.
+  decimals: 2
+  # Used by other plugins through Vault.
+  name-singular: dollar
+  name-plural: dollars
+
+# Lines per page in /money top and /money history.
+top-page-size: 10
+history-page-size: 10
+
+# Date format for /money history (Java DateTimeFormatter pattern, server time zone).
+history-time-format: "yyyy-MM-dd HH:mm"
+
+messages:
+  prefix: "<gold>[Money]</gold> "
+  no-permission: "<prefix><red>You don't have permission to do that."
+  player-only: "<prefix><red>Only players can use this command."
+  player-not-found: "<prefix><red>No account found for <white><player></white>."
+  invalid-amount: "<prefix><red><white><input></white> is not a valid amount."
+  balance-limit: "<prefix><red>That would put <white><player></white> above the maximum balance of <white><max></white>."
+  balance-self: "<prefix><gray>Your balance: <green><balance></green>"
+  balance-other: "<prefix><gray><player>'s balance: <green><balance></green>"
+  pay-self: "<prefix><red>You cannot pay yourself."
+  pay-insufficient: "<prefix><red>You don't have enough money. Your balance: <white><balance></white>"
+  pay-sent: "<prefix><gray>You sent <green><amount></green> to <white><player></white>."
+  pay-received: "<prefix><gray>You received <green><amount></green> from <white><player></white>."
+  top-header: "<gold>----- Richest players (page <page>/<pages>) -----"
+  top-entry: "<gray><rank>. <white><player></white> - <green><balance></green>"
+  top-empty: "<prefix><gray>No accounts yet."
+  history-header: "<gold>----- Transactions for <player> (page <page>/<pages>) -----"
+  history-entry: "<gray><time></gray> <white><type></white> <sign><amount> <dark_gray>(<from> -> <to>, by <actor>)"
+  history-empty: "<prefix><gray>No transactions for <white><player></white>."
+  history-error: "<prefix><red>Could not load transactions. See the server log."
+  give: "<prefix><gray>Gave <green><amount></green> to <white><player></white>. New balance: <green><balance></green>"
+  take: "<prefix><gray>Took <green><amount></green> from <white><player></white>. New balance: <green><balance></green>"
+  take-insufficient: "<prefix><red><player> only has <white><balance></white>."
+  set: "<prefix><gray>Set <white><player></white>'s balance to <green><balance></green>."
+  reset: "<prefix><gray>Reset <white><player></white>'s balance to <green><balance></green>."
+  reload: "<prefix><green>Configuration reloaded."
+  reload-failed: "<prefix><red>Reload failed, keeping the old configuration: <white><error></white>"

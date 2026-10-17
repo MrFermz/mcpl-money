@@ -1,0 +1,33 @@
+name: mcpl-money
+version: '${version}'
+main: dev.mcpl.money.MoneyPlugin
+api-version: '26.3'
+description: Player economy with SQLite/PostgreSQL storage, a transaction log and Vault support.
+softdepend: [Vault]
+
+# Downloaded by Paper from Maven Central on first start (versions come from build.gradle.kts).
+libraries:
+${libraries}
+
+permissions:
+  money.balance:
+    description: Check your own balance with /money
+    default: true
+  money.balance.others:
+    description: Check another player's balance with /money balance <player>
+    default: op
+  money.pay:
+    description: Send money with /money pay
+    default: true
+  money.top:
+    description: View the richest players with /money top
+    default: true
+  money.history:
+    description: View your own transactions with /money history
+    default: true
+  money.history.others:
+    description: View another player's transactions with /money history <player>
+    default: op
+  money.admin:
+    description: Use /money give, take, set, reset and reload
+    default: op
